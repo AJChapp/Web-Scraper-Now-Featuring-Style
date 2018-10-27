@@ -16,7 +16,4 @@ export default {
     scrape:() =>{
         return axios.get('/api/scrape')
     }
-
-
-
-}
+};

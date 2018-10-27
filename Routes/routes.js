@@ -61,11 +61,13 @@ module.exports = function (app) {
 
         db.Article.create(result)
           .then(function (dbArticle) {
+            
           }).catch(function (err) {
             return res.json(err);
           });
       });
-      res.redirect(`http://localhost:${PORT}`);
+      res.json({success:true})
+      // res.redirect(`http://localhost:3000`);
     });
   });
 }
