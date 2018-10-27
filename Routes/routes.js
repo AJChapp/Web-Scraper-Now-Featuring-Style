@@ -2,10 +2,12 @@ const db = require('../models');
 const axios = require('axios');
 const cheerio = require('cheerio');
 const PORT = require ('../server.js');
+const mongoose = require('mongoose')
 
 module.exports = function (app) {
   app.get("/api/articles", function (req, res) {
     db.Article.find({})
+    .populate('notes')
       .then(function (data) {
         res.json(data);
       }).catch(function (err) {

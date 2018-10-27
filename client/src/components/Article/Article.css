@@ -1,3 +1,36 @@
-.Notes{
-    justify-content: right;
+.noteHolder{
+    float: right;
+    text-align: right;
+}
+.articleHolder{
+    float: right;
+    
+}
+.noteBtns{
+    max-width: 100px;
+    display: inline-block;
+    /* float: left; */
+    margin: 2px;
+    margin-top: 8px;
+}
+.itemHolder{
+    margin: 5px;;
+    float: left; 
+}
+.addNoteBtn{
+display: inline-block;
+}
+.newNoteTitle{
+    width: 100%;
+}
+.newNoteBody{
+    width: 100%;
+    height: 100px;
+    resize: none;
+    font-size:12px;
+}
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
 }

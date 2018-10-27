@@ -2,3 +2,7 @@
 .HomeTitle{
     text-align: center;
 }
+.Home{
+    justify-content: center;
+    margin: auto;
+}

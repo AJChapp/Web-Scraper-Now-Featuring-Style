@@ -9,6 +9,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.use(express.static('client/public'));
 
 mongoose.connect("mongodb://localhost/scrapingHW");
 
