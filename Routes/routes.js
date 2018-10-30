@@ -37,9 +37,12 @@ module.exports = function (app) {
 
     db.Note.create({ title: req.body.title, body: req.body.body })
       .then(function (notes) {
+        console.log(req.params.id)
+
         return db.Article.findOneAndUpdate({ _id: mongoose.Types.ObjectId(req.params.id) }, { $push: { notes: mongoose.Types.ObjectId(notes._id) } }, { new: true });
       })
       .then(function (dbUser) {
+        console.log(dbUser)
         res.json(dbUser);
       })
       .catch(function (err) {
@@ -72,4 +75,4 @@ module.exports = function (app) {
       // res.redirect(`http://localhost:3000`);
     });
   });
-}
+} 

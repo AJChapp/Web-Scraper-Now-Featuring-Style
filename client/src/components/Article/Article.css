@@ -34,3 +34,23 @@ display: inline-block;
     clear: both;
     display: table;
 }
+.currentNote{
+    border: 2px solid black;
+    border-top: 1px solid black;
+    border-left: 0px;
+    border-right: 0px;
+}
+.currentNoteTitle{
+    margin-bottom: 0px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+.currentNoteBody{
+    margin-bottom: 0px;
+}
+.currentNote0{
+    border-top: 2px solid black;
+}
+.deleteBtn{
+   float: right;
+}

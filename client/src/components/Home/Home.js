@@ -20,16 +20,11 @@ class Home extends Component {
         }
     }
 
-    // renderArticle =()=>{
-    //     this.state.articles.map((part, index)=>{
-    //         return <Article key ={index} id={part._id} title= {part.title} link = {part.link} notes = {part.notes} />
-    //     })
-    // }
-
     render() {
         return (
             <Container className = 'Home'>
                 <h1 className = 'HomeTitle'>EchoJS Articles</h1>
+        
                 {this.state.articles.map((part, index)=>{
                     return <Article key ={index} index={index} id={part._id} title= {part.title} link = {part.link} notes = {part.notes} />
                 })}

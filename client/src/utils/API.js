@@ -10,8 +10,8 @@ export default {
     deleteNote:(id)=>{
         return axios.get(`/api/note/delete/${id}`)
     },
-    postNote:(id)=>{
-        return axios.post(`/api/articles/${id}`)
+    postNote:(id, note)=>{
+        return axios.post(`/api/articles/${id}`, note)
     },
     scrape:() =>{
         return axios.get('/api/scrape')

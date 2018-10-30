@@ -5,12 +5,8 @@ import {
 import './Article.css'
 import API from '../../utils/API.js'
 
-class Article extends Component {
 
-    // state = {
-    //     title: "",
-    //     body: ""
-    // }
+class Article extends Component {
 
     constructor(props) {
         super(props);
@@ -20,7 +16,8 @@ class Article extends Component {
             popoverOpen: false,
             popoverOpenSecond: false,
             title: "",
-            body: ""
+            body: "",
+            notes: this.props.notes.length
         };
     }
 
@@ -30,37 +27,42 @@ class Article extends Component {
         })
     }
 
-    toggle() {
+    toggle = () => {
         this.setState({
             popoverOpen: !this.state.popoverOpen
         });
     }
-
-    toggleSecond() {
+    toggle2 = () => {
         this.setState({
-            popoverOpenSecond: !this.state.popoverOpen
+            popoverOpenSecond: !this.state.popoverOpenSecond
         });
     }
 
-    submitNote(){
-        API.postNote(this.articleid).then(function(res){
+    submitNote = () => {
+        let request = {
+            title: this.state.title,
+            body: this.state.body
+        }
+        API.postNote(this.props.id, request).then(function (res) {
             console.log(res.status)
         })
+        this.toggle()
+    }
+
+    deleteNote = (part) => {
+        console.log(this)
     }
 
     renderBtns = () => {
         if (this.props.notes.length > 0) {
-            console.log('if')
             return (<div>
-                <Button id={`Popover${this.props.index}`} data-array={JSON.stringify(this.props.notes)} onClick={this.toggle} className="noteBtns newNoteBtn">New Note</Button>
-                <Button id={`PopoverSecond${this.props.index}`} data-array={JSON.stringify(this.props.notes)} onClick={this.toggleSecond} className="noteBtns allNoteBtn">View Notes</Button>
+                <Button id={`Popover${this.props.index}`} onClick={this.toggle} className="noteBtns newNoteBtn">New Note</Button>
+                <Button id={`PopoverSecond${this.props.index}`} onClick={this.toggle2} className="noteBtns allNoteBtn">View Notes</Button>
             </div>)
         }
         else {
-            console.log('else')
             return (
-                <Button id={`Popover${this.props.index}`} data-array={JSON.stringify(this.props.notes)} onClick={this.toggle} className="noteBtns newNoteBtn">New Note</Button>
-
+                <Button id={`Popover${this.props.index}`} onClick={this.toggle} className="noteBtns newNoteBtn">New Note</Button>
             )
         }
     }
@@ -80,28 +82,30 @@ class Article extends Component {
                             <p>Title:</p>
                             <input name="title" className='newNoteTitle' onChange={this.captureInput}></input>
                             <p>Body:</p>
-                            <textarea name="body" className='newNoteBody'  onChange={this.captureInput}></textarea>
+                            <textarea name="body" className='newNoteBody' onChange={this.captureInput}></textarea>
                             <Button articleid={this.props.id} className="addNoteBtn" onClick={this.submitNote}>Add Note</Button>
                         </PopoverBody>
                     </Popover>
-                    <Popover placement="bottom" isOpen={this.state.popoverOpenSecond} target={`PopoverSecond${this.props.index}`} toggle={this.toggle}>
-                        <PopoverHeader>New Note</PopoverHeader>
+                    {this.props.notes.length > 0 ? <Popover placement="bottom" isOpen={this.state.popoverOpenSecond} target={`PopoverSecond${this.props.index}`} toggle={this.toggle2}>
+                        <PopoverHeader>Current Notes</PopoverHeader>
                         <PopoverBody>
-                            <p>HelloWorld</p>
+                            {
+                                this.props.notes.map((part, index) => {
+                                    return (
+                                        <div key={index} className={"currentNote currentNote" + index}>
+                                            <Button close className="deleteBtn" color="danger" onClick={() => this.deleteNote(part)}/>
+                                            <p className="currentNoteTitle">{part.title}</p>
+                                            <p className="currentNoteBody">{part.body}</p>
+                                        </div>
+                                    )
+                                })
+                            }
                         </PopoverBody>
-                    </Popover>
+                    </Popover> : ""}
                 </Card>
             </Col>
         )
     }
 }
 
-// {this.props.notes.map(function(part, index) {
-// return (
-//     <div key ={index} className="noteHolder">
-//         <span className="noteTitle">{part.title}</span>
-//         <p className="noteBody">{part.body}</p>
-//     </div>
-// )
-// })}
 export default Article;
