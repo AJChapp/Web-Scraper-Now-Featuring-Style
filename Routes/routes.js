@@ -39,7 +39,8 @@ module.exports = function (app) {
       .then(function (notes) {
         console.log(req.params.id)
 
-        return db.Article.findOneAndUpdate({ _id: mongoose.Types.ObjectId(req.params.id) }, { $push: { notes: mongoose.Types.ObjectId(notes._id) } }, { new: true });
+        return db.Article.findOneAndUpdate({ _id: mongoose.Types.ObjectId(req.params.id) },
+         { $push: { notes: mongoose.Types.ObjectId(notes._id) } }, { new: true });
       })
       .then(function (dbUser) {
         console.log(dbUser)
