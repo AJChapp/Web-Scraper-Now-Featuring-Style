@@ -43,14 +43,19 @@ class Article extends Component {
             title: this.state.title,
             body: this.state.body
         }
-        API.postNote(this.props.id, request).then(function (res) {
-            console.log(res.status)
+        API.postNote(this.props.id, request).then((res)=> {
+            if(res.status===200){
+                console.log(res)
+            //    this.props.addNote
+            }
         })
         this.toggle()
     }
 
-    deleteNote = (part) => {
-        console.log(this)
+    deleteNote = (part, index) => {
+        API.deleteNote(part._id).then((response)=>{
+            this.props.updateNote(this.props.index, index)
+        })
     }
 
     renderBtns = () => {
@@ -73,7 +78,7 @@ class Article extends Component {
                 <Card body>
                     <div className="articleHolder">
                         <CardTitle>{this.props.title}</CardTitle>
-                        <CardText><a href={this.props.link}>Link to Article</a></CardText>
+                        <CardText><a href={this.props.link}>Link to Source</a></CardText>
                     </div>
                     {this.renderBtns()}
                     <Popover placement="bottom" isOpen={this.state.popoverOpen} target={`Popover${this.props.index}`} toggle={this.toggle}>
@@ -93,7 +98,7 @@ class Article extends Component {
                                 this.props.notes.map((part, index) => {
                                     return (
                                         <div key={index} className={"currentNote currentNote" + index}>
-                                            <Button close className="deleteBtn" color="danger" onClick={() => this.deleteNote(part)}/>
+                                            <Button close className="deleteBtn" color="danger" onClick={() => this.deleteNote(part, index)}/>
                                             <p className="currentNoteTitle">{part.title}</p>
                                             <p className="currentNoteBody">{part.body}</p>
                                         </div>

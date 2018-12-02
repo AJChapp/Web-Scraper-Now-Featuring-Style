@@ -1,7 +1,6 @@
 const db = require('../models');
 const axios = require('axios');
 const cheerio = require('cheerio');
-const PORT = require ('../server.js');
 const mongoose = require('mongoose')
 
 module.exports = function (app) {
@@ -27,7 +26,8 @@ module.exports = function (app) {
 
   app.get("/api/note/delete/:id", function (req, res) {
     db.Note.remove({ _id: mongoose.Types.ObjectId(req.params.id) }).then(function (updatedNote) {
-      res.redirect(`http://localhost:${PORT}`);
+      console.log(updatedNote)
+      res.json({success: true})
     }).catch(function (err) {
       res.json(err);
     })

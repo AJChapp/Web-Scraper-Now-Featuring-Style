@@ -14,8 +14,8 @@
     margin-top: 8px;
 }
 .itemHolder{
-    margin: 5px;;
-    float: left; 
+    margin: 5px;
+    display: inline-block;
 }
 .addNoteBtn{
 display: inline-block;
